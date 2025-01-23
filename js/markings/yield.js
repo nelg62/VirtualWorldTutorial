@@ -1,4 +1,4 @@
-class Stop extends Marking {
+class Yield extends Marking {
   constructor(center, directionVector, width, height) {
     super(center, directionVector, width, height);
 
@@ -16,8 +16,8 @@ class Stop extends Marking {
     ctx.textBaseline = "middle";
     ctx.textAlign = "center";
     ctx.fillStyle = "white";
-    ctx.font = "bold" + this.height * 0.3 + "px Arial";
-    ctx.fillText("STOP", 0, 1);
+    ctx.font = "bold " + this.height * 0.3 + "px Arial";
+    ctx.fillText("YIELD", 0, 1);
 
     ctx.restore();
   }
