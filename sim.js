@@ -41,7 +41,7 @@ const traffic = [];
 let roadBorders = [];
 const target = world.markings.find((m) => m instanceof Target);
 if (target) {
-  world.generateCorridor(bestCar, target.center);
+  world.generateCorridor(myCar, target.center);
   roadBorders = world.corridor.map((s) => [s.p1, s.p2]);
 } else {
   roadBorders = world.roadBorders.map((s) => [s.p1, s.p2]);
@@ -50,7 +50,7 @@ if (target) {
 animate();
 
 function save() {
-  localStorage.setItem("bestBrain", JSON.stringify(bestCar.brain));
+  localStorage.setItem("bestBrain", JSON.stringify(myCar.brain));
 }
 
 function discard() {
@@ -83,15 +83,15 @@ function animate(time) {
     cars[i].update(roadBorders, traffic);
   }
 
-  bestCar = cars.find(
+  myCar = cars.find(
     (c) => c.fittness == Math.max(...cars.map((c) => c.fittness))
   );
 
   world.cars = cars;
-  world.bestCar = bestCar;
+  world.bestCar = myCar;
 
-  viewport.offset.x = -bestCar.x;
-  viewport.offset.y = -bestCar.y;
+  viewport.offset.x = -myCar.x;
+  viewport.offset.y = -myCar.y;
 
   viewport.reset();
 
@@ -105,6 +105,6 @@ function animate(time) {
 
   networkCtx.lineDashOffset = -time / 50;
   networkCtx.clearRect(0, 0, networkCanvas.width, networkCanvas.height);
-  Visualizer.drawNetwork(networkCtx, bestCar.brain);
+  Visualizer.drawNetwork(networkCtx, myCar.brain);
   requestAnimationFrame(animate);
 }
